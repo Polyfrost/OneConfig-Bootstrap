@@ -38,15 +38,8 @@ loom {
     if (project.platform.isLegacyForge) {
         launchConfigs.named("client") {
             arg("--tweakClass", "cc.polyfrost.oneconfigwrapper.OneConfigWrapper")
-            property("mixin.debug.export", "true")
         }
     }
-    if (project.platform.isForge) {
-        forge {
-            mixinConfig("mixins.${mod_id}.json")
-        }
-    }
-    mixin.defaultRefmapName.set("mixins.${mod_id}.refmap.json")
 }
 
 val shade: Configuration by configurations.creating {
@@ -66,9 +59,12 @@ repositories {
 dependencies {
     modCompileOnly("cc.polyfrost:oneconfig-$platform:0.1.0-alpha+")
 
-    if (platform.isLegacyForge) {
-        compileOnly("org.spongepowered:mixin:0.7.11-SNAPSHOT")
+    if (platform.isFabric) {
+        throw GradleException("Unsupported platform: $platform")
+    } else if (platform.isLegacyForge) {
         shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-alpha+")
+    } else {
+        throw GradleException("Unsupported platform: $platform")
     }
 }
 
@@ -138,9 +134,7 @@ tasks {
             attributes(
                 mapOf(
                     "ModSide" to "CLIENT",
-                    "ForceLoadAsMod" to true,
                     "TweakOrder" to "0",
-                    "MixinConfigs" to "mixin.${mod_id}.json",
                     "TweakClass" to "cc.polyfrost.oneconfigwrapper.OneConfigWrapper"
                 )
             )
