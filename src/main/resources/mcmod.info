@@ -2,15 +2,13 @@
   {
     "modid": "${id}",
     "name": "${name}",
-    "description": "",
+    "description": "A standalone mod that loads OneConfig.",
     "version": "${version}",
-    "mcversion": "1.8.9",
-    "url": "",
+    "mcversion": "${mcVersionStr}",
+    "url": "https://github.com/Polyfrost/OneConfig-Bootstrap",
     "updateUrl": "",
-    "authorList": [
-      "Your Name"
-    ],
-    "credits": "",
+    "authorList": [],
+    "credits": "The Polyfrost Developers",
     "logoFile": "",
     "screenshots": [],
     "dependencies": []
