@@ -1,2 +1,3 @@
 # OneConfig-Bootstrap
-An easy way to load OneConfig
+
+A standalone mod that loads OneConfig.
