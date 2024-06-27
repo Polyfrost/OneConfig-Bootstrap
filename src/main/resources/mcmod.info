@@ -7,8 +7,10 @@
     "mcversion": "${mcVersionStr}",
     "url": "https://github.com/Polyfrost/OneConfig-Bootstrap",
     "updateUrl": "",
-    "authorList": [],
-    "credits": "The Polyfrost Developers",
+    "authorList": [
+      "Polyfrost"
+    ],
+    "credits": "",
     "logoFile": "",
     "screenshots": [],
     "dependencies": []

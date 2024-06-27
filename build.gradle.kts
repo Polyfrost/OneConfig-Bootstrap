@@ -3,12 +3,12 @@ import cc.polyfrost.gradle.util.noServerRunConfigs
 
 plugins {
     kotlin("jvm")
-    id("cc.polyfrost.multi-version")
-    id("cc.polyfrost.defaults.repo")
-    id("cc.polyfrost.defaults.java")
-    id("cc.polyfrost.defaults.loom")
+    id("org.polyfrost.multi-version")
+    id("org.polyfrost.defaults.repo")
+    id("org.polyfrost.defaults.java")
+    id("org.polyfrost.defaults.loom")
     id("com.github.johnrengelman.shadow")
-    id("net.kyori.blossom") version "1.3.0"
+    id("net.kyori.blossom") version "1.3.2"
     id("signing")
     java
 }
@@ -16,10 +16,6 @@ plugins {
 val mod_name: String by project
 val mod_version: String by project
 val mod_id: String by project
-
-preprocess {
-    vars.put("MODERN", if (project.platform.mcMinor >= 16) 1 else 0)
-}
 
 blossom {
     replaceToken("@VER@", mod_version)
@@ -53,14 +49,14 @@ sourceSets {
 }
 
 repositories {
-    maven("https://repo.polyfrost.cc/releases")
+    maven("https://repo.polyfrost.org/releases")
 }
 
 dependencies {
     if (platform.isFabric) {
         throw GradleException("Unsupported platform: $platform")
     } else if (platform.isLegacyForge) {
-        shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta+")
+        shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta17")
     } else {
         throw GradleException("Unsupported platform: $platform")
     }
