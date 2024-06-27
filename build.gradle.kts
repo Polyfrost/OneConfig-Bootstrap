@@ -1,5 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import cc.polyfrost.gradle.util.noServerRunConfigs
+import org.polyfrost.gradle.util.noServerRunConfigs
 
 plugins {
     kotlin("jvm")
@@ -32,8 +32,8 @@ base {
 loom {
     noServerRunConfigs()
     if (project.platform.isLegacyForge) {
-        launchConfigs.named("client") {
-            arg("--tweakClass", "cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker")
+        runConfigs.named("client") {
+            programArgs("--tweakClass", "cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker")
         }
     }
 }
@@ -120,7 +120,7 @@ tasks {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
     remapJar {
-        input.set(shadowJar.get().archiveFile)
+        inputFile.set(shadowJar.get().archiveFile)
         archiveClassifier.set("")
     }
     jar {
