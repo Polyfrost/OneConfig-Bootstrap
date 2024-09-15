@@ -33,7 +33,7 @@ loom {
     noServerRunConfigs()
     if (project.platform.isLegacyForge) {
         runConfigs.named("client") {
-            programArgs("--tweakClass", "cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker")
+            programArgs("--tweakClass", "org.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker")
         }
     }
 }
@@ -49,6 +49,7 @@ sourceSets {
 }
 
 repositories {
+    mavenLocal()
     maven("https://repo.polyfrost.org/releases")
 }
 
@@ -56,10 +57,12 @@ dependencies {
     if (platform.isFabric) {
         throw GradleException("Unsupported platform: $platform")
     } else if (platform.isLegacyForge) {
-        shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta17")
+        shade("org.polyfrost.oneconfig:stage0:1.1.0-alpha.5:launchwrapper")
     } else {
         throw GradleException("Unsupported platform: $platform")
     }
+
+    shade("org.spongepowered:mixin:0.7.11-SNAPSHOT")
 }
 
 tasks.processResources {
@@ -114,15 +117,18 @@ tasks {
             }
         }
     }
+
     named<ShadowJar>("shadowJar") {
         archiveClassifier.set("dev")
         configurations = listOf(shade)
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
+
     remapJar {
         inputFile.set(shadowJar.get().archiveFile)
         archiveClassifier.set("")
     }
+
     jar {
         manifest {
             attributes(
@@ -137,4 +143,5 @@ tasks {
         archiveClassifier.set("")
         enabled = false
     }
+
 }
