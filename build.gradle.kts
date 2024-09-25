@@ -54,15 +54,17 @@ repositories {
 }
 
 dependencies {
+    val stage0Version = "1.1.0-alpha.6"
+    println("Platform: $platform")
     if (platform.isFabric) {
-        throw GradleException("Unsupported platform: $platform")
+        shade("org.polyfrost.oneconfig:stage0:$stage0Version:fabriclike")
     } else if (platform.isLegacyForge) {
-        shade("org.polyfrost.oneconfig:stage0:1.1.0-alpha.5:launchwrapper")
+        shade("org.polyfrost.oneconfig:stage0:$stage0Version:launchwrapper")
+        shade("org.spongepowered:mixin:0.7.11-SNAPSHOT")
     } else {
-        throw GradleException("Unsupported platform: $platform")
+        shade("org.polyfrost.oneconfig:stage0:$stage0Version:modlauncher")
     }
 
-    shade("org.spongepowered:mixin:0.7.11-SNAPSHOT")
 }
 
 tasks.processResources {
