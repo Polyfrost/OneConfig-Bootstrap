@@ -1,0 +1,14 @@
+{
+    "schemaVersion": 1,
+    "id": "${mod_id}",
+    "version": "${mod_version}",
+    "name": "${mod_name}",
+    "description": "${mod_description}",
+    "authors": [
+        "Polyfrost"
+    ],
+    "environment": "client",
+    "depends": {
+        "minecraft": "~${minor_mc_version}"
+    }
+}
