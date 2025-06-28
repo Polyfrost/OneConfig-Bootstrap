@@ -16,12 +16,13 @@ plugins {
     id("dev.deftu.gradle.tools.minecraft.releases") // Applies the Minecraft auto-releasing plugin, which allows you to automatically release your mod to CurseForge and Modrinth.
 }
 val applyOneConfigBuilder: OneConfigBuilder.() -> Unit = {
-    version = "1.0.0-alpha.109"
-    loaderVersion = "1.1.0-alpha.46"
+    version = extra["mod.version"].toString()
+    loaderVersion = extra["oneconfig.loader"].toString()
     applyLoaderTweaker = true
 }
-val omnicoreVersion = "0.32.0"
-val textileVersion = "0.18.0"
+val omnicoreVersion = extra["oneconfig.omnicore"].toString()
+val textileVersion = extra["oneconfig.textile"].toString()
+val flkVersion = extra["oneconfig.flk"].toString()
 
 val oneConfigBuilder = OneConfigBuilder().apply(applyOneConfigBuilder)
 
@@ -45,7 +46,7 @@ dependencies {
         include(compileOnly("org.polyfrost.oneconfig.dependencies:agnostic:${oneConfigBuilder.version}")!!)
         include(compileOnly("dev.deftu:omnicore-$mcData:$omnicoreVersion")!!)
         include(compileOnly("dev.deftu:textile-$mcData:$textileVersion")!!)
-        include(compileOnly("net.fabricmc:fabric-language-kotlin:1.12.2+kotlin.2.0.20") {
+        include(compileOnly("net.fabricmc:fabric-language-kotlin:$flkVersion") {
             isTransitive = false
         })
 
